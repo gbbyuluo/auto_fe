@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre id="aa"></pre>
+
+<div style="display:none" id="w">JS 实现类似打印的效果（一个字一个字显示）我就是来测试一下是否可以一个字一个字的跳出来，没有其它的意思。。。。啦啦啦。。。
+</div>
+<script language="javascript">
+    var index=0;
+    var word=document.getElementById("w").innerHTML;
+    function type(){
+        document.getElementById("aa").innerText = word.substring(0,index++);
+    }
+    setInterval(type, 500);
+</script>
+</body>
+</html>

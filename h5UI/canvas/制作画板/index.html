@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background: #ccc;
+        }
+
+        canvas {
+            background: #fff;
+            margin: 50px 10px;
+        }
+
+        input {
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<canvas width="500" height="500" id="canvas">
+    <span>亲，您的浏览器不支持canvas，换个浏览器试试吧！</span>
+</canvas>
+<p>
+    <input type="button" value="红画笔" id="red">
+    <input type="button" value="绿画笔" id="green">
+    <input type="button" value="蓝画笔" id="blue">
+    <input type="button" value="重置颜色" id="default">
+    <input type="button" value="清除画布" id="clear">
+</p>
+<script>
+  window.onload = function () {
+    var canvas = document.getElementById('canvas')
+    var type = 'png';
+    var imgData = canvas.toDataURL(type);
+    var ctx = canvas.getContext('2d')
+    var oInput = document.getElementsByTagName('input')
+    for (var i = 0; i < oInput.length; i++) {
+      oInput[i].onclick = function () {
+        var ID = this.getAttribute('id')
+        switch (ID) {
+          case 'red':
+            ctx.strokeStyle = 'red'
+            break
+          case 'green':
+            ctx.strokeStyle = 'green'
+            break
+          case 'blue':
+            ctx.strokeStyle = 'blue'
+            break
+          case 'default':
+            ctx.strokeStyle = 'black'
+            break
+          case 'clear':
+            ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
+            break
+        }
+      }
+    }
+    draw()
+    function draw () {
+      canvas.onmousedown = function (ev) {
+        var ev = ev || event
+        ctx.beginPath()
+        ctx.moveTo(ev.clientX - canvas.offsetLeft, ev.clientY - canvas.offsetTop)
+        document.onmousemove = function (ev) {
+          var ev = ev || event
+          ctx.lineTo(ev.clientX - canvas.offsetLeft, ev.clientY - canvas.offsetTop)
+          ctx.stroke()
+        }
+        document.onmouseup = function (ev) {
+          document.onmousemove = document.onmouseup = null
+          ctx.closePath()
+        }
+
+      }
+    }
+
+  }
+
+</script>
+</body>
+</html>
