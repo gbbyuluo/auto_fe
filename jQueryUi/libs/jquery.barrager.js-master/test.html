@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/barrager.css">
+    <script src="http://cdn.gbtags.com/jquery/1.8.0/jquery-1.8.0.min.js"></script>
+    <script src="./dist/js/jquery.barrager.js"></script>
+</head>
+<body>
+<script>
+
+    barrange();
+
+function barrange(){
+    var barrages=[
+        { 'info' : '第一条弹幕',
+            'img' : 'static/img/heisenberg.png',
+            'href': 'http://www.yaseng.org',},
+        { 'info' : '第er条弹幕',
+            'img' : 'static/img/heisenberg.png',
+            'href': 'http://www.yaseng.org',},
+        { 'info' : '第三条弹幕',
+            'img' : 'static/img/heisenberg.png',
+            'href': 'http://www.yaseng.org',},
+        { 'info' : '第四条弹幕',
+            'img' : 'static/img/heisenberg.png',
+            'href': 'http://www.yaseng.org',},
+        { 'info' : '第5条弹幕',
+            'img' : 'static/img/heisenberg.png',
+            'href': 'http://www.yaseng.org',}
+    ];
+
+    var bottom=Math.random()*100+30;
+//    var item={
+//        img:'static/img/yaseng.png', //图片
+//        info:'弹幕文字信息', //文字
+//        href:'http://www.yaseng.org', //链接
+//        close:true, //显示关闭按钮
+//        speed:6, //延迟,单位秒,默认6
+//        bottom:bottom, //距离底部高度,单位px,默认随机
+//        color:'#fff', //颜色,默认白色
+//        old_ie_color:'#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
+//    }
+    for(var i=0;i<barrages.length;i++){
+        setInterval(function($i){
+            console.log($i)
+          $('body').barrager(barrages[$i]);
+        }(i),1000)
+    }
+    //每条弹幕发送间隔
+    var looper_time=3*1000;
+//是否首次执行
+    var run_once=true;
+    do_barrager();
+
+    function do_barrager(){
+        if(run_once){
+            //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+            looper=setInterval(do_barrager,looper_time);
+            run_once=false;
+        }
+        //获取
+        $.getJSON('server.php?mode=1',function(data){
+            //是否有数据
+            if(data.info){
+
+                $('body').barrager(data);
+            }
+
+        });
+    }
+
+}
+
+</script>
+</body>
+</html>
