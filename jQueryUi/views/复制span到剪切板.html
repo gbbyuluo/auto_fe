@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    function copyUrl2()
+    {
+        document.getElementById("text").value= document.getElementById("biao1").innerHTML//复制文本只对文本框（input，tetxtarea等有用),对span没有，所以将span的值复制到textarea中，但是如果textarea隐藏的话，复制效果失效，所以只能让textarea透明处理
+        var Url2=document.getElementById("text");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("已复制好，可贴粘。");
+    }
+</script>
+<textarea cols="20" rows="10"  id="text" style="width:0;height:0;opacity:0;">用户定义的代码区域</textarea>
+<span id="biao1">efresx</span>
+<input type="button" onClick="copyUrl2()" value="点击复制代码" />
+</body>
+</html>

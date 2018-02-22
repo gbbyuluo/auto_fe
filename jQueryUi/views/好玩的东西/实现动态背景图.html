@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .banner-row {
+            position: relative;
+            min-width: 1200px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            zoom: 1;
+            transform-style: preserve-3d;
+            transition: all .15s ease-out;
+        }
+        .layer {
+            text-align: center;
+            position: absolute;
+        }
+        .hover-image {
+            top: 100px;
+        }
+        .right-image:first-of-type {
+            -webkit-animation: re-banner-slide-20 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;
+            animation: re-banner-slide-20 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;\
+        }
+        .layer img {
+            width: 800px;
+            position: absolute;
+            right: -60px;
+        }
+        .right-image:nth-of-type(2) {
+            -webkit-animation: re-banner-slide-40 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;
+            animation: re-banner-slide-40 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;
+        }
+        .right-image:nth-of-type(3) {
+            -webkit-animation: re-banner-slide-60 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;
+            animation: re-banner-slide-60 .8s cubic-bezier(.4, 0, .2, 1) 0s 1;
+        }
+    </style>
+</head>
+<body>
+<div class="banner-row" data-parallel="" style="transform: rotateX(0.579557deg) rotateY(-0.952444deg);">
+
+    <div class="layer right-image hover-image  no-transition" data-zindex="50" style="transform: translateZ(50px);">
+        <img src="https://img.alicdn.com/tfs/TB19VlllBfH8KJjy1XbXXbLdXXa-1600-880.png" alt="">
+    </div>
+
+    <div class="layer right-image hover-image  no-transition" data-zindex="100" style="transform: translateZ(100px);">
+        <img src="https://img.alicdn.com/tfs/TB1rXpllBfH8KJjy1XbXXbLdXXa-1600-880.png" alt="">
+    </div>
+
+    <div class="layer right-image hover-image  no-transition" data-zindex="150" style="transform: translateZ(150px);">
+        <img src="https://img.alicdn.com/tfs/TB1DIWklxrI8KJjy0FpXXb5hVXa-1600-880.png" alt="" data-spm-anchor-id="5176.8142029.759393.i0.22449968liDZhL">
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        /* Make it a marquee */
+        .marquee {
+            width: 450px;
+            margin: 0 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .marqueen_run{
+            animation: marquee 50s linear infinite;
+        }
+        .marquee:hover {
+            animation-play-state: paused
+        }
+
+        /* Make it move */
+        @keyframes marquee {
+            0%   { text-indent: 27.5em }
+            100% { text-indent: -105em }
+        }
+    </style>
+</head>
+<body>
+
+<!--<p class="marquee"><span>Windows 8</span> </p>-->
+<p class="marquee1 marquee"><span>WindowsWindows Windows Windows Windows Windows Windows </span> </p>
+<p class="marquee2 marquee"><span>Windows </span> </p>
+
+</body>
+<script src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+<script>
+    console.log($('.marquee span').width())
+    if($('.marquee1 span').width()>450){
+        $('.marquee1').addClass('marqueen_run')
+    }else{
+        $('.marquee1').removeClass('marqueen_run')
+    }
+    if($('.marquee2 span').width()>450){
+        $('.marquee2').addClass('marqueen_run')
+    }else{
+        $('.marquee2').removeClass('marqueen_run')
+    }
+</script>
+</html>

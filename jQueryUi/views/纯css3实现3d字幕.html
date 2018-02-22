@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #marquee { perspective: 500px; font-size: 0; } #marquee div { display: inline-block; height: 12rem; width: 30rem; position: relative; }
+        #marquee div:first-of-type { background: #e5233e; transform-origin: top right; transform: rotateY(-40deg); color: #fff; } #marquee div:last-of-type { background: #b31e31; transform-origin: top left; transform: rotateY(45deg); color: #f8c9d9; }
+        #marquee div { font-size: 8rem; overflow: hidden; } #marquee div span { position: absolute; width: 400%; line-height: 1.4; }
+        #marquee div:first-of-type span { transform: translateX(60rem); animation: leftcrawl 14s linear infinite; text-shadow: 4px 0px 4px rgba(0,0,0,0.3); }
+        #marquee div:last-of-type span { transform: translateX(30rem); animation: rightcrawl 14s linear infinite; }
+        @keyframes leftcrawl { to { transform: translateX(-100rem); } }
+        @keyframes rightcrawl { to { transform: translateX(-130rem); } }
+        /*当浏览器的屏幕变窄时，上面的代码做出来的效果就不太好：文本和角度变得越来越小，这样使用字幕越来越难阅读。所以当屏幕宽度小于993px时，将上面的3D效果换成2D效果，也就是只显示一个div元素。*/
+
+        @media all and (max-width: 993px) { #marquee { perspective: none; } #marquee div:last-of-type { opacity: 0; height: 0; } #marquee div:first-of-type { width: 80%; } }                                                                                                                                                                                          商业转载请联系作者获得授权,非商业转载请注明出处。
+
+    </style>
+</head>
+<body>
+<div id="marquee">
+    <div><span>ONE LOVE ONE HEART</span></div>
+    <div aria-hidden="true"><span>ONE LOVE ONE HEART</span></div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js把链接修改成二维码测试</title>
+    <script src="./qrcode.js"></script>
+    <style>
+        #qrcode{
+            /*text-align: center;*/
+            /*display: table-cell;*/
+            /*width: 96px;*/
+            /*height: 96px;*/
+            /*vertical-align:middle;*/
+            /*position: relative;*/
+        }
+    </style>
+</head>
+<body>
+<div id="qrcode">
+</div>
+<input type="text" id="getval"/> <button id="send">生成二维码</button>
+<button id="download">下载二维码</button>
+<a href="data:image/png;base64,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">下载</a>
+<script>
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width : 96,//设置宽高
+        height : 96
+    });
+    document.getElementById("send").onclick =function(){
+        qrcode.makeCode(document.getElementById("getval").value);
+    };
+    qrcode.makeCode("http://www.cnblogs.com/zxyun/");
+
+</script>
+</body>
+</html>

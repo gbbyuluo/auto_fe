@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>marquee测试</title>
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.marquee.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            console.log($("#marquee span").width()>80)
+            if($("#marquee span").width()>80){
+                $("#marquee").marquee({
+                  gap:100,
+
+                    direction:'top'
+
+
+                });
+            }else {
+                $("#marquee").marquee('pause')
+            }
+
+        });
+    </script>
+
+    <style>
+        .marquee {
+            overflow: hidden;
+            width:200px;
+             height:3px
+            /*height: 22px;*/
+            border:1px solid #ccc;
+        }
+        .marquee span {
+            float:left;
+            white-space: nowrap;
+            padding: 3px 5px;
+        }
+    </style>
+</head>
+
+<body >
+<div id="marquee" class="marquee">
+    <p style="width:80px;">
+    <span>
+       <a href="http://www.bloomylife.com/?cat=153" target="_blank">WEB前端开发</a>
+        [2011-10-20]
+        <a href="http://www.bloomylife.com/?cat=153" target="_blank">WEB前端开发</a>
+        [2011-10-20]
+    </span>
+    </p>
+</div>
+
+
+</body>
+</html>

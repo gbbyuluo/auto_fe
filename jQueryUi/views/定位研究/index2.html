@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    var DealerNameCode = 2113293;
+    var AddressCode = 2113492;
+    var ArticleCode = 2113493;
+    var OrderCode = 2113494;
+    var MapDealerCode = 0;
+
+    var Code = '2|1211004|68|7818|203547|301253';
+    var ATestCode = '';
+    var BTestCode = '';
+
+    var ListArea = 'm_series_list_top';
+    var ListEvextends = "{'dealer_id':'','brand_id':'','series_id':'4252','spec_id':''}";
+    var MapArea = 'm_series_map_list';
+    var MapEvextends = "{'dealer_id':'{dealer_id}','brand_id':'','series_id':'4252','spec_id':''}";
+
+    var MapPvAreaId = '2113499';
+
+    var submitText = '0' == 1 ? "获取底价" : "询底价";
+    var orderEid = Code;
+    if(!orderEid) {
+        orderEid = '0' == 1 ? ATestCode : BTestCode;
+    }
+
+    var _dealerlistmap = new Array(3);
+    var maps = {
+        bdLat: 0,
+        bdLon: 0,
+        getTemplate: function (dealer) {
+            var temp = '<section class="dealer-info">' +
+                '<a class="citylink" href="#dealerLink">'+
+                '<img class="info-logo" src="#MainBrandImgUrl" alt="" />' +
+                '<section class="info-content">' +
+                '<h1><span>#company</span><mark class="mark mark-supply">#OrderRange</mark></h1>' +
+                '<p>#address</p>' +
+                '</section>' +
+                '</a>'+
+                '<div class="handle">' +
+                '<a onclick="trackCustomEvent(\'auto_common_event\',{\'biz\':\'dlr\',\'scene\':\'0\',\'type\':\'click\',\'action\':\'dlr_link_map_directions_click\',\'ctime\':\''+new Date().getTime()+'\',\'area\':\''+MapArea+'\',\'element\':\'map_directions\',\'pmark\':\'0\',\'target\':\'0\',\'ctype\':\'0\',\'cid\':\'0\'},'+MapEvextends+')" href="http://map.baidu.com/mobile/webapp/search/search/qt=s&wd=#company&c=131&searchFlag=bigBox&version=5&exptype=dep&nb_x=12948678&nb_y=4836168&center_rank=1/vt="><i class="iconfont icon-gps"></i>我要导航</a>' +
+                '<a href="tel:#AppSellPhone"  onclick="_gaq.push([\'_trackEvent\',\'dealer-phone\',\'call\',\'经销商列表\']);" eventargv=\'#eventargv\'><i class="iconfont icon-telphone#icon"></i>#phone</a>' +
+                '</div>' +
+                '</section>' ;
+            return temp.replace("#dealerUrl", "/" + dealer.DealerId)
+                .replace("#dealerLink","/"+dealer.DealerId+"#pvareaid=" + MapPvAreaId)
+                .replace(/#company/g, dealer.MinistieName)
+                .replace(/{dealer_id}/g, dealer.DealerId)
+                .replace("#hasLicense", dealer.HasAuth ? '<i class="icon icon-permit"></i>' : "-")
+                .replace("#hasAuth", dealer.HasAuth ? "授权经销商" : "-")
+                .replace("#bands", dealer.MainBand == "" ? "" : "<p>主营品牌：" + dealer.MainBand + "</p>")
+                .replace("#icon", dealer.Icon)
+                .replace("#phone", dealer.Phone)
+                .replace("#address", dealer.Address)
+                .replace("#lat", dealer.MapLatBaidu)
+                .replace("#lng", dealer.MapLonBaidu)
+                .replace("#cityName", dealer.CityName)
+                .replace("#AppSellPhone", dealer.AppSellPhone)
+                .replace("#eventargv", dealer.eventargv)
+                .replace("#OrderRange", dealer.OrderRange)
+                .replace("#MainBrandImgUrl", dealer.MainBrandImgUrl);
+        },
+        addMarker: function (dealer, mapA) {
+            if (dealer.MapLonBaidu > 0 && dealer.MapLatBaidu > 0) {
+                var point = new BMap.Point(dealer.MapLonBaidu, dealer.MapLatBaidu);
+                var marker = new BMap.Marker(point);
+                (mapA || map).addOverlay(marker);
+                marker.disableDragging();
+                return marker;
+            } else
+                return null;
+        },
+        openInfoWindow: function (dealer, marker, mapA) {
+            var openInfoWinFun = function () {
+                var infoWindowHtml = maps.getTemplate(dealer);
+                var width = $(document.body).width() - 60;
+                if (width > 340)
+                    width = 340;
+                var infoWindow = new BMap.InfoWindow(infoWindowHtml, { width: width, height: 87, enableMessage: false });
+                marker.openInfoWindow(infoWindow, (mapA || map).getCenter());
+            }
+            if (marker)
+                marker.addEventListener("click", openInfoWinFun);
+            return openInfoWinFun;
+        },
+
+        initMapData: function () {
+            var width = $(document.body).width() - 5;
+            var height = $(window).height() - 20;
+            $("#mapContainer").css({ "width": width + "px", "height": height + "px" });
+            var map = new BMap.Map("mapContainer", { enableMapClick: false, vectorMapLevel: 99 });
+            map.enableScrollWheelZoom();
+            var currenTabSpan = $("#divOrderTab span.activate");
+            var jsonIndex = currenTabSpan.attr("data_json");
+            var dealerlistmap = _dealerlistmap[jsonIndex];
+            $("#divMap_dealerNum").text("共有" + dealerlistmap.length + "家经销商");
+            var hasInit = true;
+            for (var i = 0, n = dealerlistmap.length; i < n; i++) {
+                var dealerInfo = dealerlistmap[i];
+                if (i == 0) {
+                    var zoomnum = 10;
+                    var centerLon = dealerInfo.MapLonBaidu;
+                    var centerLat = dealerInfo.MapLatBaidu;
+                    if ($("#secCitydd").attr("data-cid") == "0") {
+                        zoomnum = 6; //全国
+                        centerLon = 108.803617;
+                        centerLat = 34.342077;
+                    }
+
+                    map.centerAndZoom(new BMap.Point(centerLon, centerLat), zoomnum);
+                }
+                var marker = maps.addMarker(dealerInfo, map);
+                var openFn = maps.openInfoWindow(dealerInfo, marker, map);
+            }
+        },
+        show: function () {
+            window.location.href = "/maplist_"+110100+"_" + 4252+"_"+0+ ".html";
+            //$("#sectionDealerData").addClass("fn-hide");
+            //$("#divMap").removeClass("fn-hide");
+
+            //maps.initMapData();
+
+            //trackCustomEvent('auto_common_event',{'biz':'dlr','scene':'0','type':'click','action':'dlr_link_map_icon_click','ctime':new Date().getTime(),'area':ListArea,'element':'map_icon','pmark':'0','target':'0','ctype':'0','cid':'0'},ListEvextends);
+        },
+        closeMap: function () {
+            $("#divMap").addClass("fn-hide");
+            $("#sectionDealerData").removeClass("fn-hide");
+        }
+    };
+</script>
+</body>
+</html>

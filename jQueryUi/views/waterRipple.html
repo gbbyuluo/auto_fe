@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>水波纹按钮</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        /*自定义按钮样式*/
+        .btns{
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            width: 200px;
+            color: #fff;
+            background-color: #428bca;
+            margin: 50px auto;
+        }
+
+
+        /*必要样式*/
+        .water-btn{
+            position: relative;
+            overflow: hidden;
+        }
+        .wb-click{
+            position: absolute;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            top:0px;
+            left: 0px;
+        }
+        .water-btn .wb-world{
+            position: relative;;
+            z-index: 1;
+        }
+        .water-btn .water-btn-style{
+            position:absolute;
+            border-radius:100%;
+            　　opacity:.6;
+            background:#fff;
+            animation:waterBtn 3s;
+            -webkit-animation:waterBtn 3s; /* Safari and Chrome */
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        @keyframes waterBtn
+        {
+            0% {
+                width:0px;
+                height:0px;
+            }
+            50% {
+                width:1000px;
+                height:1000px;
+                opacity:0
+            }
+            100%{
+                opacity:0
+            }
+        }
+
+        @-webkit-keyframes waterBtn /* Safari and Chrome */
+        {
+            0% {
+                width:0px;
+                height:0px;
+            }
+            50% {
+                width:1000px;
+                height:1000px;
+                opacity:0
+            }
+            100%{
+                opacity:0
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- domo data-clickColor是水波纹的颜色；可以是#xxxxxx的形式，也可以是rgba()的形式 -->
+<div class="water-btn btns" data-clickColor="rgba(255,255,255,.5)">
+    <div class="wb-click"></div>
+    <div class="wb-world">这里是一个按钮</div>
+</div>
+
+<script type="text/javascript" src="//y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+<script>
+    $(function(){
+        $('.water-btn').click(function(e){
+            var _this = $(this);
+            var px = e.offsetX;
+            var py = e.offsetY;
+
+            var id=parseInt(Math.random()*1000);
+            _this.append('<div class="water-btn-style" style="top:'+py+'px;left:'+px+'px;background:'+_this.attr('data-clickColor')+'" id="wb_'+id+'"></div>');
+            setTimeout(function(){
+                _this.find('#wb_'+id).remove()
+            },3000)
+        });
+    });
+</script>
+</body>
+</html>
+复制代码

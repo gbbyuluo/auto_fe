@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .publish-amount-box {
+            position: relative;
+            margin-top: 65px;
+        }
+        .publish-amount-box .publish-amount-con {
+            margin: 0 auto;
+        }
+
+        .publish-amount-con .common-amount {
+            float: left;
+            width: 50%;
+            text-align: center;
+        }
+        .publish-amount-con .common-amount .title {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .publish-amount-con .common-amount  .subtit {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .publish-amount-con .common-amount  .public-num-border {
+            height: 160px;
+            line-height: 160px;
+            display: inline-block;
+            /*background-color:orangered;*/
+            border-radius: 50%;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 160px;
+            background: -moz-linear-gradient(top, #00a2ff 0%, #70ffac 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00a2ff), color-stop(100%, #70ffac));
+            background: -webkit-linear-gradient(top, #00a2ff 0%, #70ffac 100%);
+            background: -o-linear-gradient(top, #00a2ff 0%, #70ffac 100%);
+            background: -ms-linear-gradient(top, #00a2ff 0%, #70ffac 100%);
+            background: linear-gradient(to bottom, #00a2ff 0%, #70ffac 100%);
+        }
+
+        .publish-amount-con .common-amount  .public-num-border:hover {
+            background: -moz-linear-gradient(top, #85b6b2 0%, #6d4f8d 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #85b6b2), color-stop(100%, #6d4f8d));
+            background: -webkit-linear-gradient(top, #85b6b2 0%, #6d4f8d 100%);
+            background: -o-linear-gradient(top, #85b6b2 0%, #6d4f8d 100%);
+            background: -ms-linear-gradient(top, #85b6b2 0%, #6d4f8d 100%);
+            background: linear-gradient(to bottom, #85b6b2 0%, #6d4f8d 100%);
+        }
+
+        .publish-amount-con .common-amount  .public-num-border .public-num-space {
+            height: 158px;
+            line-height: 158px;
+            display: inline-block;
+            /*background-color:orangered;*/
+            border-radius: 50%;
+            text-align: center;
+            font-size: 16px;
+            width: 158px;
+            background-color: #fff;
+        }
+
+        .publish-amount-con .common-amount  .public-num-border .public-num-space .public-num-box {
+            height: 140px;
+            line-height: 140px;
+            display: inline-block;
+            /*background-color:orangered;*/
+            border-radius: 50%;
+            text-align: center;
+            line-height: 140px;
+            font-size: 16px;
+            width: 140px;
+            background: -moz-linear-gradient(top, #5886f0 0%, #00a2ff 50%, #70ffac 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5886f0), color-stop(50%, #00a2ff), color-stop(100%, #70ffac));
+            background: -webkit-linear-gradient(top, #5886f0 0%, #00a2ff 50%, #70ffac 100%);
+            background: -o-linear-gradient(top, #5886f0 0%, #00a2ff 50%, #70ffac 100%);
+            background: -ms-linear-gradient(top, #5886f0 0%, #00a2ff 50%, #70ffac 100%);
+            background: linear-gradient(to bottom, #5886f0 0%, #00a2ff 50%, #70ffac 100%);
+
+        }
+        .common-amount  .public-num-border .public-num-space .public-num-box:hover {
+            background: -moz-linear-gradient(top, #5886f0 0%, #85b6b2 50%, #6d4f8d 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5886f0), color-stop(50%, #85b6b2), color-stop(100%, #6d4f8d));
+            background: -webkit-linear-gradient(top, #5886f0 0%, #85b6b2 50%, #6d4f8d 100%);
+            background: -o-linear-gradient(top, #5886f0 0%, #85b6b2 50%, #6d4f8d 100%);
+            background: -ms-linear-gradient(top, #5886f0 0%, #85b6b2 50%, #6d4f8d 100%);
+            background: linear-gradient(to bottom, #5886f0 0%, #85b6b2 50%, #6d4f8d 100%);
+        }
+
+        .common-amount  .public-num-border .public-num-space .public-num-box .public-num {
+            height: 120px;
+            width: 120px;
+            display: inline-block;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 114px;
+            font-size: 24px;
+            margin-top: 10px;
+            background-color: #fff;
+            color: #5886f0;
+        }
+    </style>
+</head>
+<body>
+<div class="publish-amount-box">
+    <div class="publish-amount-con clearfix">
+        <div class="publish-amount common-amount">
+            <p class="title">发布量</p>
+            <p class="subtit">（昨日发布量）</p>
+            <div class="public-num-border">
+                <div class="public-num-space">
+                    <div class="public-num-box">
+                        <div class="public-num">10篇</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="read-amount common-amount" v-if="mediaIndexInfo.highestReadCount>0">
+            <p class="title">10W+发布</p>
+            <p class="subtit">（昨日发布量）</p>
+            <div class="public-num-border">
+                <div class="public-num-space">
+                    <div class="public-num-box">
+                        <div class="public-num">30篇</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

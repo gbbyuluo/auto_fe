@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .img{
+            width: 213px;
+            height: 253px;
+            margin: 0 auto 14px;
+            overflow: hidden;
+            background: url(./img/energy.png) center 0px / 100% no-repeat;
+        }
+
+    </style>
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div class="img"></div>
+<script>
+    var i=0;
+    var time;
+    $('.img').hover(function(){
+          if(time){
+              clearInterval(time)
+          }
+            time=setInterval(function(){
+               i++;
+               if(i>=19){
+                   clearInterval(time)
+               }
+               var str=253*i;
+               $('.img').css('background',"url(./img/energy.png) center -"+str+"px no-repeat")
+
+           },10)
+    },function(){
+        clearInterval(time)
+        time=setInterval(function(){
+        i--;
+        if(i<=0){
+            clearInterval(time)
+        }
+        var str=253*i;
+        $('.img').css('background',"url(./img/energy.png) center -"+str+"px no-repeat")
+
+    },10)
+    })
+</script>
+</body>
+</html>

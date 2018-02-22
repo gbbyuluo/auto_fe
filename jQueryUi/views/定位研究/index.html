@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title></title>
+    <script src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<div id="info">
+    定位中...
+</div>
+
+<script>
+    var getUserGps = function (callback_succ, callback_error) {
+        function getPosError(err) {
+            var error = "";
+            switch (err) {
+                case err.PERMISSION_DENIED:
+                    error = "您拒绝了共享位置。";
+                    break;
+                case err.POSITION_UNAVAILABLE:
+                    error = "无法获取当前位置";
+                    break;
+                case err.TIMEOUT:
+                    error = "获取位置超时";
+                    break;
+                default:
+                    error = "未知定位错误";
+                    break;
+            }
+            var msg = "无法获取位置：";
+            if (err && err.message)
+                msg += err.message;
+
+            if (typeof callback_error == "function")
+                callback_error({
+                    error: error,
+                    message:msg
+                });
+        }
+
+        function getPosSuccess(position) {
+            // var coords = position.coords;
+            //user_lat = coords.latitude, user_lon = coords.longitude;
+
+
+            if (typeof callback_succ == "function")
+                callback_succ(position);
+        }
+
+        navigator.geolocation.getCurrentPosition(getPosSuccess, getPosError, null);
+    }
+
+
+    getUserGps(function (position) {
+        console.log(1)
+            var coords = position.coords;
+            var lat = coords.latitude, lon = coords.longitude;
+
+            if (parent && parent.userGpsObj)
+            {
+                parent.userGpsObj.success(position);
+            }
+            else {
+                document.getElementById("info").innerHTML = "lat:" + lat + " lon:" + lon;
+            }
+        },
+        function (error) {
+            console.log(2)
+            if (parent && parent.userGpsObj) {
+                parent.userGpsObj.fail(error);
+            }
+            else {
+                document.getElementById("info").innerHTML = "error:" + error.error + " message:" + error.message;
+            }
+        });
+</script>
+
+
+
+</body></html>
+</html>

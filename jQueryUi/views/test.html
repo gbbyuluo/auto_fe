@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<input type="checkbox" id="test">
+<script>
+    $("#test").change(function() {
+        if ($('#test').attr('checked')) {
+            // do something
+            console.log('000')
+        }else{
+            console.log('999')
+        }
+        alert("checked");
+    });
+</script>
+</body>
+</html>

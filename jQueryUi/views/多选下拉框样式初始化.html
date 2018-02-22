@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+</head>
+<body>
+<span style="white-space:pre">      </span>
+
+<div class="control-group">
+    <label class="control-label">主讲人：</label>
+    <div class="controls">
+        <select id="speakers" style="width:300px;" >
+            <option value="0">1</option>
+            <option value="1">1</option>
+            <option value="2">1</option>
+        </select>
+        <input type="hidden" name="speakers"/>
+        <span class="help-inline"><font color="red">*</font> </span>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#speakers").select2({
+            createSearchChoice:function(term, data) { if ($(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0) {return {id:term, text:term};} },
+            multiple: true,
+            data: [{id: 0, text: 'story'},{id: 1, text: 'bug'},{id: 2, text: 'task'}]
+        });
+    })
+
+
+</script>
+</body>
+</html>

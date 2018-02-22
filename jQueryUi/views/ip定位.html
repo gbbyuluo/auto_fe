@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+    <script src="http://p2.ifengimg.com/auto/custom/layer/layer.js"></script>
+    <script type="text/javascript" src="http://p1.ifengimg.com/auto/js/2017/0204/jquery.cookie.js"></script>
+
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=g7leDQ69QAqMTLWwYpIEARcgugEiXVbB&s=1" type="text/javascript"></script>
+
+</head>
+<body>
+<script>
+    var arrCity = new Array(
+        ['', '北京', 'beijing', 'bj', '110000'],
+        ['', '天津', 'tianjin', 'tj', '120000'],
+        ['', '滨海', 'binhai', 'bh', '121000'],
+        ['', '石家庄', 'shijiazhuang', 'hb_sjz', '130100'],
+        ['', '唐山', 'tangshan', 'hb_ts', '130200'],
+        ['', '保定', 'baoding', 'hb_bd', '130600'],
+        ['', '邯郸', 'handan', 'hb_hd', '130400'],
+        ['', '邢台', 'xingtai', 'hb_xta', '130500'],
+        ['', '沧州', 'cangzhou', 'hb_cz', '130900'],
+        ['', '秦皇岛', 'qinhuangdao', 'hb_qhd', '130300'],
+        ['', '张家口', 'zhangjiakou', 'hb_zjk', '130700'],
+        ['', '承德', 'chengde', 'hb_cd', '130800'],
+        ['', '廊坊', 'langfang', 'hb_lf', '131000'],
+        ['', '衡水', 'hengshui', 'hb_hs', '131100'],
+        ['', '太原', 'taiyuan', 'sx_ty', '140100'],
+        ['', '运城', 'yuncheng', 'sx_yc', '140800'],
+        ['', '大同', 'datong', 'sx_dt', '140200'],
+        ['', '阳泉', 'yangquan', 'sx_yq', '140300'],
+        ['', '长治', 'changzhi', 'sx_cz', '140400'],
+        ['', '晋城', 'jincheng', 'sx_jc', '140500'],
+        ['', '朔州', 'shuozhou', 'sx_sz', '140600'],
+        ['', '晋中', 'jinzhong', 'sx_jz', '140700'],
+        ['', '忻州', 'xinzhou', 'sx_xz', '140900'],
+        ['', '临汾', 'linfen', 'sx_lf', '141000'],
+        ['', '吕梁', 'lvliang', 'sx_ll', '141100'],
+        ['', '济南', 'jinan', 'sd_jn', '370100'],
+        ['', '青岛', 'qingdao', 'sd_qd', '370200'],
+        ['', '临沂', 'linyi', 'sd_ly', '371300'],
+        ['', '潍坊', 'weifang', 'sd_wf', '370700'],
+        ['', '淄博', 'zibo', 'sd_zb', '370300'],
+        ['', '济宁', 'jining', 'sd_jni', '370800'],
+        ['', '聊城', 'liaocheng', 'sd_lc', '371500'],
+        ['', '烟台', 'yantai', 'sd_yt', '370600'],
+        ['', '枣庄', 'zaozhuang', 'sd_zz', '370400'],
+        ['', '东营', 'dongying', 'sd_dy', '370500'],
+        ['', '泰安', 'taian', 'sd_ta', '370900'],
+        ['', '威海', 'weihai', 'sd_wh', '371000'],
+        ['', '日照', 'rizhao', 'sd_rz', '371100'],
+        ['', '德州', 'dezhou', 'sd_dz', '371400'],
+        ['', '莱芜', 'laiwu', 'sd_lw', '371200'],
+        ['', '滨州', 'binzhou', 'sd_bz', '371600'],
+        ['', '呼和浩特', 'huhehaote', 'nmg_hhht', '150100'],
+        ['', '包头', 'baotou', 'nmg_bt', '150200'],
+        ['', '鄂尔多斯', 'eerduosi', 'nmg_eeds', '150600'],
+        ['', '赤峰', 'chifeng', 'nmg_cf', '150400'],
+        ['', '乌海', 'wuhai', 'nmg_wh', '150300'],
+        ['', '通辽', 'tongliao', 'nmg_tl', '150500'],
+        ['', '巴彦淖尔', 'bayannaoer', 'nmg_byze', '150800'],
+        ['', '乌兰擦布', 'wulanchabu', 'nmg_wlcb', '150900'],
+        ['', '呼伦贝尔', 'hulunbeier', 'nmg_hlbe', '150700'],
+        ['', '锡林郭勒', 'xilinguole', 'nmg_xlgl', '152500'],
+        ['', '阿拉善', 'alashan', '', '152900'],
+        ['', '上海', 'shanghai', 'sh', '310000'],
+        ['', '杭州', 'hangzhou', 'zj_hz', '330100'],
+        ['', '宁波', 'ningbo', 'zj_nb', '330200'],
+        ['', '温州', 'wenzhou', 'zj_wz', '330300'],
+        ['', '嘉兴', 'jiaxing', 'zj_jx', '330400'],
+        ['', '金华', 'jinhua', 'zj_jh', '330700'],
+        ['', '衢州', 'quzhou', 'zj_qz', '330800'],
+        ['', '台州', 'tzhou', 'zj_tz', '331000'],
+        ['', '绍兴', 'shaoxing', 'zj_sx', '330600'],
+        ['', '丽水', 'lishui', 'zj_ls', '331100'],
+        ['', '湖州', 'huzhou', 'zj_hzh', '330500'],
+        ['', '舟山', 'zhoushan', 'zj_zs', '330900'],
+        ['', '苏州', 'suzhou', 'ah_sz', '320500'],
+        ['', '南京', 'nanjing', 'js_nj', '320100'],
+        ['', '无锡', 'wuxi', 'js_wx', '320200'],
+        ['', '南通', 'nantong', 'js_nt', '320600'],
+        ['', '泰州', 'taizhou', 'js_tz', '321200'],
+        ['', '扬州', 'yangzhou', 'js_yz', '321000'],
+        ['', '常州', 'changzhou', 'js_cz', '320400'],
+        ['', '镇江', 'zhenjiang', 'js_zj', '321100'],
+        ['', '昆山', 'kunshan', 'js_ks', '320583'],
+        ['', '徐州', 'xuzhou', 'js_xz', '320300'],
+        ['', '淮安', 'huaian', 'js_ha', '320800'],
+        ['', '连云港', 'lianyungang', 'js_lyg', '320700'],
+        ['', '盐城', 'yancheng', 'js_yc', '320900'],
+        ['', '宿迁', 'suqian', 'js_sq', '321300'],
+        ['', '合肥', 'hefei', 'ah_hf', '340100'],
+        ['', '六安', 'liuan', 'ah_la', '341500'],
+        ['', '淮南', 'huainan', 'ah_hn', '340400'],
+        ['', '淮北', 'huaibei', 'ah_hb', '340600'],
+        ['', '蚌埠', 'bengbu', 'ah_bb', '340300'],
+        ['', '阜阳', 'fuyang', 'ah_fy', '341200'],
+        ['', '芜湖', 'wuhu', 'ah_wh', '340200'],
+        ['', '安庆', 'anqing', 'ah_aq', '340800'],
+        ['', '宣城', 'xuancheng', 'ah_xc', '341800'],
+        ['', '马鞍山', 'maanshan', 'ah_mas', '340500'],
+        ['', '铜陵', 'tongling', 'ah_tl', '340700'],
+        ['', '黄山', 'huangshan', 'ah_hs', '341000'],
+        ['', '滁州', 'chuzhou', 'ah_cz', '341100'],
+        ['', '宿州', 'suzhou', 'ah_sz', '341300'],
+        ['', '巢湖', 'chaohu', 'ah_ch', '341400'],
+        ['', '亳州', 'haozhou', '', '341600'],
+        ['', '池州', 'chizhou', 'ah_cz', '341700'],
+        ['', '南昌', 'nanchang', 'jx_nc', '360100'],
+        ['', '九江', 'jiujiang', 'jx_jj', '360400'],
+        ['', '抚州', 'fu_zhou', 'jx_fz', '361000'],
+        ['', '赣州', 'ganzhou', 'jx_gz', '360700'],
+        ['', '景德镇', 'jingdezhen', 'jx_jdz', '360200'],
+        ['', '萍乡', 'pignxiang', '', '360300'],
+        ['', '新余', 'xinyu', 'jx_xy', '360500'],
+        ['', '鹰潭', 'yingtan', 'jx_yt', '360600'],
+        ['', '吉安', 'jian', 'jx_ja', '360800'],
+        ['', '宜春', 'yichun', 'hlj_yc', '360900'],
+        ['', '上饶', 'shangrao', 'jx_sr', '361100'],
+        ['', '郑州', 'zhengzhou', 'hn_zzh', '410100'],
+        ['', '濮阳', 'puyang', 'hn_py', '410900'],
+        ['', '洛阳', 'luoyang', 'hn_ly', '410300'],
+        ['', '开封', 'kaifeng', 'hn_kf', '410200'],
+        ['', '平顶山', 'pingdingshan', 'hn_pts', '410400'],
+        ['', '安阳', 'anyang', 'hn_ay', '410500'],
+        ['', '鹤壁', 'hebi', 'hn_hb', '410600'],
+        ['', '新乡', 'xinxiang', 'hn_xx', '410700'],
+        ['', '焦作', 'jiaozuo', 'hn_jz', '410800'],
+        ['', '许昌', 'xuchang', 'hn_xc', '411000'],
+        ['', '漯河', 'luohe', 'hn_lh', '411100'],
+        ['', '三门峡', 'sanmenxia', 'hn_smx', '411200'],
+        ['', '商丘', 'shangqiu', 'hn_sq', '411400'],
+        ['', '信阳', 'xinyang', 'hn_xy', '411500'],
+        ['', '周口', 'zhoukou', 'hn_zk', '411600'],
+        ['', '驻马店', 'zhumadian', 'hn_zmd', '411700'],
+        ['', '南阳', 'nanyang', 'hn_ny', '411300'],
+        ['', '济源', 'jiyuan', 'hn_jy', '419001'],
+        ['', '武汉', 'wuhan', 'hb_wh', '420100'],
+        ['', '十堰', 'shiyan', 'hb_sy', '420300'],
+        ['', '襄阳', 'xiangyang', 'hb_xy', '420600'],
+        ['', '宜昌', 'yichang', 'hb_yc', '420500'],
+        ['', '黄石', 'huangshi', 'hb_hs', '420200'],
+        ['', '鄂州', 'ezhou', 'hb_ez', '420700'],
+        ['', '荆门', 'jingmen', 'hb_jm', '420800'],
+        ['', '孝感', 'xiaogan', 'hb_xg', '420900'],
+        ['', '荆州', 'jingzhou', 'hb_jz', '421000'],
+        ['', '黄冈', 'huanggang', 'hb_hg', '421100'],
+        ['', '咸宁', 'xianning', 'hb_xn', '421200'],
+        ['', '随州', 'suizhou', 'hb_sz', '421300'],
+        ['', '恩施', 'enshi', 'hb_es', '422800'],
+        ['', '长沙', 'changsha', 'hn_cs', '430100'],
+        ['', '邵阳', 'shaoyang', 'hn_sya', '430500'],
+        ['', '株洲', 'zhuzhou', 'hn_zz', '430200'],
+        ['', '怀化', 'huaihua', 'hn_hh', '431200'],
+        ['', '湘潭', 'xiangtan', 'hn_xt', '430300'],
+        ['', '衡阳', 'hengyang', 'hn_hy', '430400'],
+        ['', '岳阳', 'yueyang', 'hn_yy', '430600'],
+        ['', '常德', 'changde', 'hn_cd', '430700'],
+        ['', '张家界', 'zhangjiajie', 'hn_zjj', '430800'],
+        ['', '郴州', 'chenzhou', 'hn_cz', '431000'],
+        ['', '永州', 'yongzhou', 'hn_yz', '431100'],
+        ['', '娄底', 'loudi', 'hn_ldi', '431300'],
+        ['', '吉首', 'jishou', '', '431400'],
+        ['', '益阳', 'yiyang', 'hn_yy', '430900'],
+        ['', '广州', 'guangzhou', 'gd_gz', '440100'],
+        ['', '深圳', 'shenzhen', 'gd_sz', '440300'],
+        ['', '东莞', 'dongguan', 'gd_d', '441900'],
+        ['', '佛山', 'foshan', 'gd_fs', '440600'],
+        ['', '中山', 'zhongshan', 'gd_zs', '442000'],
+        ['', '珠海', 'zhuhai', 'gd_zh', '440400'],
+        ['', '江门', 'jiangmen', 'gd_jm', '440700'],
+        ['', '惠州', 'huizhou', 'gd_hz', '441300'],
+        ['', '韶关', 'shaoguan', 'gd_sg', '440200'],
+        ['', '汕头', 'shantou', 'gd_st', '440500'],
+        ['', '湛江', 'zhanjiang', 'gd_zj', '440800'],
+        ['', '茂名', 'maoming', 'gd_mm', '440900'],
+        ['', '肇庆', 'zhaoqing', 'gd_zq', '441200'],
+        ['', '梅州', 'meizhou', 'gd_mz', '441400'],
+        ['', '汕尾', 'shanwei', 'gd_sw', '441500'],
+        ['', '阳江', 'yangjiang', 'gd_yj', '441700'],
+        ['', '河源', 'heyuan', 'gd_hy', '441600'],
+        ['', '清远', 'qingyuan', 'gd_qy', '441800'],
+        ['', '潮州', 'chaozhou', 'gd_sz', '445100'],
+        ['', '揭阳', 'jieyang', 'gd_jy', '445200'],
+        ['', '云浮', 'yunfu', 'gd_yf', '445300'],
+        ['', '福州', 'fuzhou', 'fj_fz', '350100'],
+        ['', '厦门', 'xiamen', 'fj_xm', '350200'],
+        ['', '泉州', 'quanzhou', 'fj_qz', '350500'],
+        ['', '莆田', 'putian', 'fj_pt', '350300'],
+        ['', '三明', 'sanming', 'fj_sm', '350400'],
+        ['', '南平', 'nanping', 'fj_np', '350700'],
+        ['', '宁德', 'ningde', 'fj_nd', '350900'],
+        ['', '漳州', 'zhangzhou', 'fj_zz', '350600'],
+        ['', '龙岩', 'longyan', 'fj_ly', '350800'],
+        ['', '海口', 'haikou', 'hn_hk', '460100'],
+        ['', '三亚', 'sanya', 'hn_sy', '460100'],
+        ['', '南宁', 'nanning', 'gx_nn', '450100'],
+        ['', '梧州', 'wuzhou', 'gx_wz', '450400'],
+        ['', '桂林', 'guilin', 'gx_gl', '450300'],
+        ['', '柳州', 'liuzhou', 'gx_lz', '450200'],
+        ['', '玉林', 'ylin', 'gx_yl', '450900'],
+        ['', '防城港', 'fanggangcheng', '', '450600'],
+        ['', '钦州', 'qinzhou', 'gx_qz', '450700'],
+        ['', '贵港', 'guigang', 'gx_gg', '450800'],
+        ['', '百色', 'baise', 'gx_bs', '451000'],
+        ['', '贺州', 'hezhou', 'gx_hz', '451100'],
+        ['', '河池', 'hechi', 'gx_hc', '451200'],
+        ['', '来宾', 'laibin', 'gx_lb', '451300'],
+        ['', '崇左', 'chongzuo', 'gx_cz', '451400'],
+        ['', '北海', 'beihai', 'gx_bh', '450500'],
+        ['', '沈阳', 'shenyang', 'ln_sy', '210100'],
+        ['', '长春', 'changchun', 'jl_cc', '220100'],
+        ['', '大连', 'dalian', 'ln_dl', '210200'],
+        ['', '鞍山', 'anshan', 'ln_as', '210300'],
+        ['', '本溪', 'benxi', 'ln_bx', '210500'],
+        ['', '抚顺', 'fushun', 'ln_fs', '210400'],
+        ['', '丹东', 'dandong', 'ln_dd', '210600'],
+        ['', '锦州', 'jinzhou', 'ln_jz', '210700'],
+        ['', '营口', 'yingkou', 'ln_yk', '210800'],
+        ['', '阜新', 'fuxin', 'ln_fx', '210900'],
+        ['', '辽阳', 'liaoyang', 'ln_ly', '211000'],
+        ['', '盘锦', 'panjin', 'ln_pj', '211100'],
+        ['', '铁岭', 'tieling', 'ln_tl', '211200'],
+        ['', '朝阳', 'chaoyang', 'ln_cy', '211300'],
+        ['', '葫芦岛', 'huludao', 'ln_hld', '211400'],
+        ['', '通化', 'tonghua', 'jl_th', '220500'],
+        ['', '延吉', 'yanji', 'jl_yj', '222401'],
+        ['', '松原', 'songyuan', 'jl_sy', '220700'],
+        ['', '四平', 'siping', 'jl_sp', '220300'],
+        ['', '白城', 'baicheng', 'jl_bc', '220800'],
+        ['', '延边', 'yanbian', 'jl_yb', '222400'],
+        ['', '哈尔滨', 'haerbin', 'hlj_heb', '230100'],
+        ['', '大庆', 'daqing', 'hlj_dq', '230600'],
+        ['', '齐齐哈尔', 'qiqihaer', 'hlj_qqhe', '230200'],
+        ['', '佳木斯', 'jiamusi', 'hlj_jms', '230800'],
+        ['', '牡丹江', 'mudanjiang', 'hlj_mdj', '231000'],
+        ['', '绥化', 'suihua', 'hlj_sh', '231200'],
+        ['', '鸡西', 'jixi', 'hlj_jx', '230300'],
+        ['', '鹤岗', 'hegang', 'hlj_hg', '230400'],
+        ['', '双鸭山', 'shuangyashan', 'hlj_sys', '230500'],
+        ['', '伊春', 'yichun', 'hlj_yc', '230700'],
+        ['', '七台河', 'qitaihe', 'hlj_qth', '230900'],
+        ['', '黑河', 'heihe', 'hlj_hh', '231100'],
+        ['', '重庆', 'chongqing', 'cq', '500000'],
+        ['', '成都', 'chengdu', 'sc_cd', '510100'],
+        ['', '自贡', 'zigong', 'sc_zg', '510300'],
+        ['', '攀枝花', 'panzhihua', 'sc_pzh', '510400'],
+        ['', '泸州', 'luzhou', 'sc_lz', '510500'],
+        ['', '德阳', 'deyang', 'sc_dy', '510600'],
+        ['', '绵阳', 'mianyang', 'sc_my', '510700'],
+        ['', '广元', 'guangyuan', 'sc_gy', '510800'],
+        ['', '遂宁', 'suining', 'sc_sn', '510900'],
+        ['', '内江', 'neijiang', 'sc_nj', '511000'],
+        ['', '乐山', 'leshan', 'sc_ls', '511100'],
+        ['', '南充', 'nanchong', 'sc_nc', '511300'],
+        ['', '眉山', 'meishan', 'sc_ms', '511400'],
+        ['', '宜宾', 'yibin', 'sc_yb', '511500'],
+        ['', '广安', 'guangan', 'sc_ga', '511600'],
+        ['', '达州', 'dazhou', 'sc_dz', '511700'],
+        ['', '雅安', 'yaan', 'sc_ya', '511800'],
+        ['', '巴中', 'bazhong', 'sc_bz', '511900'],
+        ['', '资阳', 'ziyang', 'sc_zy', '512000'],
+        ['', '阿坝', 'aba', 'sc_ab', '513200'],
+        ['', '甘孜', 'ganzi', 'sc_gz', '513328'],
+        ['', '凉山', 'liangshan', 'sc_ls', '513400'],
+        ['', '昆明', 'kunming', 'yn_km', '530100'],
+        ['', '曲靖', 'qujing', 'yn_qj', '530300'],
+        ['', '大理', 'dali', 'yn_dl', '532901'],
+        ['', '玉溪', 'yuxi', 'yn_yx', '530400'],
+        ['', '保山', 'baoshan', 'yn_bs', '530500'],
+        ['', '邵通', 'shaotong', '', '530600'],
+        ['', '临沧', 'lincang', 'yn_lc', '530900'],
+        ['', '思茅', 'simao', '', '530800'],
+        ['', '楚雄', 'chuxiong', 'yn_cx', '532300'],
+        ['', '红河', 'honghe', 'yn_hh', '532500'],
+        ['', '文山', 'wenshan', 'yn_ws', '532600'],
+        ['', '西双版纳', 'xishuangbanna', 'yn_xsbn', '532800'],
+        ['', '德宏', 'dehong', 'yn_dh', '533100'],
+        ['', '迪庆', 'diqing', 'yn_dq', '533400'],
+        ['', '贵阳', 'guiyang', 'gz_gy', '520100'],
+        ['', '遵义', 'zunyi', 'gz_zy', '520300'],
+        ['', '六盘水', 'liupanshui', 'gz_lps', '520200'],
+        ['', '安顺', 'anshun', 'gz_as', '520400'],
+        ['', '铜仁', 'tongren', 'gz_tr', '520600'],
+        ['', '毕节', 'bijie', '', '520500'],
+        ['', '拉萨', 'lasa', 'xz_ls', '540100'],
+        ['', '昌都', 'changdu', 'xz_cd', '542100'],
+        ['', '山南', 'shannan', 'xz_sn', '540500'],
+        ['', '日喀则', 'rikaze', '', '540200'],
+        ['', '那曲', 'naqu', 'xz_nq', '542421'],
+        ['', '阿里', 'ali', 'xz_al', '542500'],
+        ['', '林芝', 'linzhi', 'xz_lz', '542600'],
+        ['', '兰州', 'lanzhou', 'gs_lz', '620100'],
+        ['', '嘉峪关', 'jiayuguan', 'gs_jyg', '620200'],
+        ['', '白银', 'baiyin', 'gs_by', '620400'],
+        ['', '天水', 'tianshui', 'gs_ts', '620500'],
+        ['', '武威', 'wuwei', 'gs_ww', '620600'],
+        ['', '张掖', 'zhangye', 'gs_zy', '620700'],
+        ['', '平凉', 'pingliang', 'gs_pl', '620800'],
+        ['', '庆阳', 'qingyang', 'gs_qy', '621000'],
+        ['', '定西', 'dingxi', 'gs_dx', '621100'],
+        ['', '金昌', 'jinchang', 'gs_jc', '620300'],
+        ['', '陇南', 'longnan', 'gs_ln', '621200'],
+        ['', '临夏', 'linxia', 'gs_lx', '622901'],
+        ['', '甘南', 'gannan', 'gs_gn', '623000'],
+        ['', '银川', 'yinchuan', 'nx_yc', '640100'],
+        ['', '石嘴山', 'shizuishan', 'nx_szs', '640200'],
+        ['', '固原', 'guyuan', 'nx_gy', '640400'],
+        ['', '吴忠', 'wuzhong', 'nx_wz', '640300'],
+        ['', '中卫', 'zhongwei', 'nx_zw', '640500'],
+        ['', '西安', 'xian', 'sx_xa', '610100'],
+        ['', '咸阳', 'xianyang', 'sx_xy', '610400'],
+        ['', '汉中', 'hanzhong', 'sx_hz', '610700'],
+        ['', '铜川', 'tongchuan', 'sx_tc', '610200'],
+        ['', '宝鸡', 'baoji', 'sx_bj', '610300'],
+        ['', '渭南', 'weinan', 'sx_wn', '610500'],
+        ['', '延安', 'yanan', 'sx_ya', '610600'],
+        ['', '榆林', 'yulin', 'sx_yl', '610800'],
+        ['', '安康', 'ankang', 'sx_ak', '610900'],
+        ['', '商洛', 'shangluo', 'sx_sl', '611000'],
+        ['', '西宁', 'xining', 'qh_xn', '630100'],
+        ['', '乌鲁木齐', 'wulumuqi', 'xj_wlmq', '650100'],
+        ['', '石河子', 'shihezi', 'xj_shz', '659001'],
+        ['', '吐鲁番', 'tulufan', 'xj_tlf', '650400'],
+        ['', '哈密', 'hami', 'xj_hm', '650500'],
+        ['', '博尔塔拉', 'boertala', 'xj_betl', '652700'],
+        ['', '巴音郭楞', 'bayinguoleng', 'xj_bygl', '652800'],
+        ['', '阿克苏', 'akesu', 'xj_aks', '652900'],
+        ['', '塔城', 'tacheng', 'xj_tc', '654200'],
+        ['', '阿勒泰', 'aletai', 'xj_alt', '654300'],
+        ['', '伊犁', 'yili', '', '654000'],
+        ['', '海东', 'haidong', 'qh_hd', '632100'],
+        ['', '海北', 'haibei', 'qh_hb', '632200'],
+        ['', '果洛', 'guoluo', 'qh_gl', '632600'],
+        ['', '玉树', 'yushu', 'qh_ys', '632700'],
+        ['', '海西', 'haixi', 'qh_hx', '632800']
+    );
+
+
+
+    //    jQuery.cookie("auto_iploc",'');
+    //    if(!jQuery.cookie("auto_iploc")){
+    if(navigator.geolocation){
+        var geolocation = new BMap.Geolocation();  //实例化浏览器定位对象。
+        //下面是getCurrentPosition方法。调用该对象的getCurrentPosition()，与HTML5不同的是，这个方法原型是getCurrentPosition(callback:function[, options: PositionOptions])，也就是说无论成功与否都执行回调函数1，第二个参数是关于位置的选项。 因此能否定位成功需要在回调函数1中自己判断。
+        geolocation.getCurrentPosition(function(r){   //定位结果对象会传递给r变量
+            var loc_lng,loc_lat;
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){  //通过Geolocation类的getStatus()可以判断是否成功定位。
+//            var mk = new BMap.Marker(r.point);    //基于定位的这个点的点位创建marker
+//            map.addOverlay(mk);    //将marker作为覆盖物添加到map地图上
+//            map.panTo(r.point);   //将地图中心点移动到定位的这个点位置。注意是r.point而不是r对象。
+                //alert('您的位置：'+r.point.lng+','+r.point.lat);  //r对象的point属性也是一个对象，这个对象的lng属性表示经度，lat属性表示纬度。
+                loc_lng = r.point.lng;
+                loc_lat = r.point.lat;
+                var myGeo = new BMap.Geocoder();
+                myGeo.getLocation(new BMap.Point(loc_lng,loc_lat), function(result){
+                    if (result){
+                        alert(result.address);
+                        returncurcode(result.addressComponents.city);
+                        proximitycity(returncurcode(result.addressComponents.city));
+
+                    }
+                });
+            } else {
+                alert('failed'+this.getStatus());
+            }
+        },{enableHighAccuracy: true});
+        //关于状态码
+//    //BMAP_STATUS_SUCCESS
+//    检索成功。对应数值“0”。
+//    //BMAP_STATUS_CITY_LIST
+//    城市列表。对应数值“1”。
+//    //BMAP_STATUS_UNKNOWN_LOCATION
+//    位置结果未知。对应数值“2”。
+//    //BMAP_STATUS_UNKNOWN_ROUTE
+//    导航结果未知。对应数值“3”。
+//    //BMAP_STATUS_INVALID_KEY
+//    非法密钥。对应数值“4”。
+//    //BMAP_STATUS_INVALID_REQUEST
+//    非法请求。对应数值“5”。
+//    //BMAP_STATUS_PERMISSION_DENIED
+//    没有权限。对应数值“6”。(自 1.1 新增)
+//    //BMAP_STATUS_SERVICE_UNAVAILABLE
+//    服务不可用。对应数值“7”。(自 1.1 新增)
+//    //BMAP_STATUS_TIMEOUT
+//    超时。对应数值“8”。(自 1.1 新增)
+    }else{
+        layer.msg("你的浏览器不支持获取地理位置！");
+    }
+    //    }
+
+
+
+
+    function returncurcode(citynm){
+        var curarr = [];
+        console.log('当前城市名',citynm);
+        for(n in arrCity){
+            if(citynm.replace('市','') == arrCity[n][1]){
+                curarr = arrCity[n];
+                break;
+            }
+        }
+        return arrCity[n][4]
+    }
+    function returncurCn(code){
+        var curarr,curcityName;
+        for(i in arrCity){
+            if(code.replace(/cn/i,'') == arrCity[i][4]){
+                curarr = arrCity[i];
+                break;
+            }
+        }
+        curcityName = curarr[1];
+        return curcityName;
+    }
+
+
+    //就近原则
+    function proximitycity(code){
+        var jjcode;
+        jQuery.ajax({
+            url:'https://api.auto.ifeng.com/app/city/data_interface/cityInfo_new.php',
+            async:false,
+            data:{match:1,citycode:code.replace(/cn/i,'')},
+            //dataType: 'jsonp',
+            jsonp: 'CallBack',
+            jsonpCallBack: 'tmpfun',
+            success:function(json){
+                var data = eval(json);
+                jjcode = data.data[0].match[0].match_citycode;
+
+                if(jjcode != code.replace(/cn/i,'')) {
+                    jQuery.cookie('auto_iploc', '');//清cookie
+                    if (code.replace(/cn/i, '') != '110000') {
+                        layer.msg(returncurCn(code.replace(/cn/i, '')) + "暂无数据，将为您切换到" + returncurCn(jjcode));
+                        console.log(jQuery.cookie("auto_iploc"))
+                    }
+                }
+
+                var exp = new Date();
+                exp.setTime(exp.getTime() + 120 * 60 * 1000);
+                jQuery.cookie("auto_iploc", jjcode, {expires: exp});
+//                var winurl = window.location.href;
+//                if (!/city=\d+/ig.test(winurl)){
+//                    location.href = location.href+'?city='+jjcode;
+//                }
+                alert(alert(jQuery.cookie("auto_iploc")))
+            },
+            error:function(d){
+                console.log(d);
+            }
+        })
+    }
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

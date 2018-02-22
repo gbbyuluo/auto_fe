@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>marquee测试</title>
+    <script type="text/javascript" src="http://y0.ifengimg.com/base/jQuery/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.marquee.min.js"></script>
+
+
+    <style>
+        ul.marquee {
+            /* required styles */
+            display: block;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            line-height: 1;
+            position: relative;
+            overflow: hidden;
+
+            /* optional styles for appearance */
+            width: 500px;
+            height: 22px; /* height should be included to reserve visual space for the marquee */
+
+            background-color: #f2f2ff;
+            border: 1px solid #08084d;
+        }
+
+        ul.marquee li {
+            /* required styles */
+            position: absolute;
+            top: -999em;
+            left: 0;
+            display: block;
+            white-space: nowrap; /* keep all text on a single line */
+
+            /* optional styles for appearance */
+            font: 14px Arial, Helvetica, sans-serif;
+            padding: 3px 5px;
+        }
+    </style>
+
+</head>
+
+<body >
+<ul id="marquee2" class="marquee">
+    <li>Lorem ipsum dolor sit amet.</li>
+    <li>Fusce tincidunt adipiscing,massa.</li>
+    <li>Mauris ullamcorper euismod leo.</li>
+</ul>
+<script type="text/javascript">
+    $(document).ready(function (){
+        $("#marquee2").marquee({yScroll: "right"});
+    });
+</script>
+</body>
+</html>
