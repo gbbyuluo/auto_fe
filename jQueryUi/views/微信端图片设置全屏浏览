@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://y0.ifengimg.com/base/jQuery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body>
+<div class='userImg'>
+    <img src="http://p1.ifengimg.com/auto/image/2017/1116/103131299.jpg"   alt="">
+    <img src="http://p1.ifengimg.com/auto/image/2017/1116/103131299.jpg"   alt="">
+</div>
+
+<script>
+    funcReadImgInfo();
+    function funcReadImgInfo(){
+        var imgs = [];
+        var imgObj = $(".userImg img");//这里改成相应的对象
+        for(var i=0; i<imgObj.length; i++){
+            imgs.push(imgObj.eq(i).attr('src'));
+            imgObj.eq(i).click(function(){
+                var nowImgurl = $(this).attr('src');
+                alert(nowImgurl)
+                alert(imgs)
+                WeixinJSBridge.invoke("imagePreview",{
+                    "urls":imgs,
+                    "current":nowImgurl
+                });
+            });
+        }
+
+    }
+</script>
+
+</body>
+</html>
